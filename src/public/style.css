@@ -1,0 +1,10 @@
+.card{
+    font-size:2em;
+    border:solid 1px #333;
+    padding:20px 10px;
+    display:inline-block;
+}
+.group{
+    margin:10px;
+}
+

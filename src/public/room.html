@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vote</title>
+        <link type="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Room</h1>
+        <a href="./">Back</a>
+        <div class="group">
+            <div id="errors"></div>
+        </div>
+        <h2>Results</h2>
+        <div class="group">
+            <div id="dataRoom"></div>
+        </div>
+        <h2>Cards</h2>
+        <div class="group">
+            <form id="vote">
+              <input class="card" type="submit" name="vote" value="0">
+              <input class="card" type="submit" name="vote" value="1">
+              <input class="card" type="submit" name="vote" value="2">
+              <input class="card" type="submit" name="vote" value="3">
+              <input class="card" type="submit" name="vote" value="5">
+              <input class="card" type="submit" name="vote" value="8">
+              <input class="card" type="submit" name="vote" value="13">
+              <input class="card" type="submit" name="vote" value="20">
+              <input class="card" type="submit" name="vote" value="40">
+              <input class="card" type="submit" name="vote" value="100">
+              <input type="hidden" name="action" value="voteRoom">
+            </form>
+        </div>
+        <h2>Options</h2>
+        <div id="dataUser"></div>
+        <div class="group">
+            <form id="setName">
+                <label for="name">Name:</label>
+                <input type="text" name="name"><br />
+                <input type="submit" value="Set name">
+                <input type="hidden" name="action" value="nameUser">
+            </form>
+        </div>
+        <div class="group">
+            <form id="clear">
+                <input type="submit" value="Clear">
+                <input type="hidden" name="action" value="clearRoom">
+            </form>
+        </div>
+        <div class="group">
+            <form id="show">
+                <input type="submit" value="Show">
+                <input type="hidden" name="action" value="showRoom">
+            </form>
+        </div>
+        <div class="group">
+            <form id="destroy">
+                <input type="submit" value="Destroy">
+                <input type="hidden" name="action" value="destroyRoom">
+            </form>
+        </div>
+        <div class="group">
+            <button id="refresh">Refresh</button>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html> 
+

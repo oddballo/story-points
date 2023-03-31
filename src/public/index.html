@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Select room</title>
+</head>
+<body>
+<h1>Lobby<h1>
+<h2>Exisiting</h2>
+<div id="lobby"></div>
+<h2>New</h2>
+<div id="dataUser"></div>
+<div id="dataLobby"></div>
+<div id="errors"></div>
+<form>
+  <label for="room">Room:</label>
+  <input type="text" id="room" name="room"><br>
+  <input type="submit" value="Submit">
+  <input type="hidden" name="action" value="createRoom">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html> 
