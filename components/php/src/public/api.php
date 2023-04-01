@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=utf-8');
 
-$folder_data = __DIR__."/../data";
+$folder_data = "/opt/data";
 if ( ! is_dir ($folder_data) ){
     mkdir($folder_data);    
 }
@@ -57,12 +57,14 @@ if(valuesAvailable($_POST, array("action"), $response)){
                 break;
             }
             $response["success"] = $room->create($response["errors"]);
+            tellTheWorld("lobby");
             break;
         case "destroyRoom":
             if(!isRoom($room, $response["errors"])){
                 break;
             }
             $room->destroy();
+            tellTheWorld("room:".$room->getName());
             break;
         case "voteRoom":
             if(!isRoom($room, $response["errors"])){
@@ -73,18 +75,21 @@ if(valuesAvailable($_POST, array("action"), $response)){
             }
             $vote = sanitizeVote($_POST['vote']);
             $response["success"] = $room->vote($user, $vote, $response["errors"]);
+            tellTheWorld("room:".$room->getName());
             break;
         case "showRoom":
             if(!isRoom($room, $response["errors"])){
                 break;
             }
             $room->show();
+            tellTheWorld("room:".$room->getName());
             break;
         case "clearRoom":
             if(!isRoom($room, $response["errors"])){
                 break;
             }
             $room->clear();
+            tellTheWorld("room:".$room->getName());
             break;
         case "dataRoom":
             if(!isRoom($room, $response["errors"])){

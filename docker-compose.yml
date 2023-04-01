@@ -2,16 +2,15 @@ version: '3.9'
 
 services:
   web:
-    image: nginx:latest
+    image: refinement-nginx:latest
     ports:
       - '8080:80'
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - php-fpm
   php-fpm:
     user: "${UID}:${GID}"
-    image: php:8-fpm
+    image: refinement-php:latest
     volumes:
-      - ./src:/var/www/html
+      - ./data:/opt/data
+  longpolling:
+    image: refinement-longpolling:latest
