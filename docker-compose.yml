@@ -14,3 +14,5 @@ services:
       - ./data:/opt/data
   longpolling:
     image: refinement-longpolling:latest
+  redis:
+    image: refinement-redis:latest

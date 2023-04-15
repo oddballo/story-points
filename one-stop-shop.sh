@@ -18,5 +18,9 @@ cd components/php
 ./build.sh
 cd "$DIR"
 
+cd components/redis
+./build.sh
+cd "$DIR"
+
 ./stop.sh
 ./start.sh

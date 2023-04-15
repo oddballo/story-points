@@ -11,15 +11,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 header('Content-Type: application/json; charset=utf-8');
 
-$folder_data = "/opt/data";
-if ( ! is_dir ($folder_data) ){
-    mkdir($folder_data);    
-}
-
 #
 #   Lobby
 #
-$lobby = new Lobby($folder_data);
+$lobby = new Lobby("main");
 
 #
 #   Room 

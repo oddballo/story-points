@@ -1,43 +1,55 @@
 <?php
 
 require_once(__DIR__."/Room.class.php");
+require_once(__DIR__."/RedisInstance.class.php");
 
 class Lobby implements JsonSerializable {
     
-    private $folder;   
+    private $name;   
     public final const MAX_ROOMS = 10; 
 
-    public function __construct($folder){
-        $this->folder = $folder;
+    public function __construct($name){
+        $this->name = $name;
+
     }
 
     public function getRooms(){
-        $rooms = array();
-        if(is_dir($this->getFolder())){
-            $files = scandir($this->getFolder());
-            foreach($files as $file){
-                if(strcmp($file, ".") != 0 &&
-                    strcmp($file, "..") != 0 &&
-                    is_dir($this->getFolder()."/".$file)){
-                    $rooms[] = new Room($this, $file);
-                }
-            }
-        }
-        return $rooms;
+        $redis = RedisInstance::get();
+        $data = $redis->smembers("lobby:".$this->getName());
+        sort($data);
+        return $data;
     }
 
-    public function getFolder(){
-        return $this->folder;
+    public function hasRoom($room){
+        $redis = RedisInstance::get();
+        return $redis->sismember("lobby:".$this->getName(), $room->getName()); 
+    }
+
+    public function addRoom($room, &$errors=array()){
+        if($this->countRooms() > self::MAX_ROOMS){
+            $errors[] = "Too many rooms. Refusing to create.";
+            return false;
+        }
+        $redis = RedisInstance::get();
+        $redis->sadd("lobby:".$this->getName(), $room->getName()); 
+    }
+
+    public function removeRoom($room){
+        $redis = RedisInstance::get();
+        $redis->srem("lobby:".$this->getName(), $room->getName());
+    }
+
+    private function countRooms(){
+        $redis = RedisInstance::get();
+        return $redis->scard("lobby:".$this->getName());
+    }
+
+    public function getName(){
+        return $this->name;
     }
 
     public function jsonSerialize():mixed{
-
-        $rooms = $this->getRooms();
-        $labels = array();
-        foreach($rooms as $room){
-            $labels[] = $room->getName();
-        }
-        return array("rooms"=>$labels);
+        return array("rooms"=>$this->getRooms());
     }
 
 }
